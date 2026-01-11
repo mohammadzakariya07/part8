@@ -286,25 +286,23 @@ function nextStep() {
 function submitApplication() {
   fetch(SCRIPT_URL, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded"
-    },
-    body:
-      "service=" + encodeURIComponent(serviceType) +
-      "&data=" + encodeURIComponent(JSON.stringify(collectedData))
+    headers: {"Content-Type": "application/x-www-form-urlencoded"},
+    body: `service=${serviceType}&data=${encodeURIComponent(JSON.stringify(collectedData))}`
   })
-  .then(res => res.json())
-  .then(res => {
-    if (res.status === "success") {
-      alert("Application submitted successfully");
-      closePopup();
-      location.reload();
-    } else {
-      alert("Server error: " + res.message);
-    }
+  .then(() => {
+    alert("Application submitted successfully");
+    closePopup();
+    location.reload();
   })
-  .catch(err => {
-    alert("Network / Script error");
-    console.error(err);
+  .catch(() => {
+    alert("Error submitting application");
   });
 }
+
+function closePopup() {
+  document.getElementById("popup").style.display = "none";
+}
+</script>
+
+</body>
+</html>
